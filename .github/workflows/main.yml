@@ -28,6 +28,7 @@ jobs:
 
     - name: Terraform Init
       run: terraform init
+      working-directory: tenvm_proj
 
     - name: Terraform Validate
       run: terraform validate
