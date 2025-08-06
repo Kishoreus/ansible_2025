@@ -27,14 +27,17 @@ jobs:
         aws-region: us-east-1  # Matches your main.tf
 
     - name: Terraform Init
+      working-directory: ./tenvm_proj
       run: terraform init
-      working-directory: tenvm_proj
 
     - name: Terraform Validate
+      working-directory: ./tenvm_proj
       run: terraform validate
 
     - name: Terraform Plan
+      working-directory: ./tenvm_proj
       run: terraform plan
 
     - name: Terraform Apply
+      working-directory: ./tenvm_proj
       run: terraform apply -auto-approve
