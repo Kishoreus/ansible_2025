@@ -37,3 +37,9 @@ resource "aws_instance" "vm" {
     Name = "vm-${count.index + 1}"
   }
 }
+
+output "instance_public_ip" {
+  description = "Public IP of EC2 instance"
+  value       = aws_instance.vm-1.public_ip
+}
+
