@@ -1,4 +1,4 @@
-name: Terraform EC2 Provisioning
+name: Terraform EC2 Provisioning and Ansible Setup
 
 on:
   push:
@@ -9,6 +9,9 @@ jobs:
   deploy_ec2:
     name: Apply Terraform EC2
     runs-on: ubuntu-latest
+
+    outputs:
+      INSTANCE_IP: ${{ steps.get_ip.outputs.instance_ip }}
 
     steps:
       - name: Checkout Code
@@ -46,7 +49,9 @@ jobs:
         id: get_ip
         working-directory: ./tenvm_proj
         run: |
-          echo "INSTANCE_IP=$(terraform output -raw instance_public_ip)" >> "$GITHUB_ENV"  
+          IP=$(terraform output -raw instance_public_ip)
+          echo "INSTANCE_IP=$IP" >> "$GITHUB_ENV"
+          echo "::set-output name=instance_ip::$IP"
 
   deploy_ansible:
     name: Install Ansible on EC2
@@ -81,3 +86,4 @@ jobs:
             sudo apt install -y ansible
             ansible --version
           EOF
+          
