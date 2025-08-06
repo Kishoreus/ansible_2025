@@ -39,7 +39,8 @@ resource "aws_instance" "vm" {
 }
 
 output "instance_public_ip" {
-  description = "Public IP of EC2 instance"
-  value       = aws_instance.vm-1.public_ip
+  description = "Public IP of the first EC2 instance"
+  value       = aws_instance.vm[0].public_ip
 }
+
 
