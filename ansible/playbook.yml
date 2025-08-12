@@ -1,0 +1,54 @@
+---
+- name: Install Jenkins on Ubuntu
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Java (Jenkins requirement)
+      apt:
+        name: openjdk-17-jdk
+        state: present
+
+    - name: Add Jenkins GPG key
+      ansible.builtin.get_url:
+        url: https://pkg.jenkins.io/debian/jenkins.io-2023.key
+        dest: /usr/share/keyrings/jenkins-keyring.asc
+        mode: '0644'
+
+    - name: Add Jenkins repository
+      copy:
+        dest: /etc/apt/sources.list.d/jenkins.list
+        content: |
+          deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian binary/
+
+    - name: Update apt cache after adding repo
+      apt:
+        update_cache: yes
+
+    - name: Install Jenkins
+      apt:
+        name: jenkins
+        state: present
+
+    - name: Enable Jenkins service
+      systemd:
+        name: jenkins
+        enabled: yes
+
+    - name: Start Jenkins service
+      systemd:
+        name: jenkins
+        state: started
+
+    - name: Show Jenkins initial admin password
+      command: cat /var/lib/jenkins/secrets/initialAdminPassword
+      register: jenkins_password
+      changed_when: false
+
+    - name: Display initial admin password
+      debug:
+        msg: "Jenkins initial admin password is: {{ jenkins_password.stdout }}"
