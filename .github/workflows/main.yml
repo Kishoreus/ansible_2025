@@ -110,7 +110,10 @@ jobs:
 
       - name: Run Ansible Playbook
         run: |
-          ansible-playbook -i ~/ansible/Inventory/hosts playbook.yml
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@$REMOTE_HOST << 'EOF'
+            ansible-playbook -i ~/ansible/Inventory/hosts playbook.yml
+          EOF        
+          
  
     
           
