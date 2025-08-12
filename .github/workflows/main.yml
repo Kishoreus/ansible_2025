@@ -81,6 +81,7 @@ jobs:
         run: |
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@$REMOTE_HOST << 'EOF'
             sudo apt update
+            sudo apt install unzip
             sudo apt install -y software-properties-common
             sudo add-apt-repository --yes --update ppa:ansible/ansible
             sudo apt install -y ansible
