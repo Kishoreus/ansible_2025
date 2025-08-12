@@ -90,7 +90,7 @@ jobs:
 
   deploy_ansi:
     runs-on: ubuntu-latest
-    #needs: deploy_ansible
+    needs: deploy_ansible
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
