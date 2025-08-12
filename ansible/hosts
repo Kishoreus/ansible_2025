@@ -1,0 +1,2 @@
+[vm-2]
+54.159.140.5 ansible_user=ubuntu ansible_ssh_private_key_file=~/ansible/sshkey/mykeypair
