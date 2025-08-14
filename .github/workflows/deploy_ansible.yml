@@ -11,7 +11,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install Ansible
-        run: sudo apt-get update && sudo apt-get install -y ansible
+        run: |
+           sudo apt-get update && sudo apt-get install -y ansible
+           chmod 600 files/keypair
 
       - name: Run Ansible playbook
         env:
