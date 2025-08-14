@@ -10,10 +10,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: set permision for ssh key
+        run: chmod 600 files/keypair
+ 
       - name: Install Ansible
         run: |
            sudo apt-get update && sudo apt-get install -y ansible
-           chmod 600 files/keypair
 
       - name: Run Ansible playbook
         env:
