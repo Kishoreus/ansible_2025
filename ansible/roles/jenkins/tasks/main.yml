@@ -1,0 +1,38 @@
+- name: Install required dependencies
+  become: yes
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - gnupg
+      - openjdk-17-jdk
+    state: present
+    update_cache: yes
+
+- name: Add Jenkins GPG key
+  become: yes
+  ansible.builtin.get_url:
+    url: "{{ jenkins_repo_url }}"
+    dest: /usr/share/keyrings/jenkins-keyring.asc
+    mode: '0644'
+
+- name: Add Jenkins apt repository
+  become: yes
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/"
+    state: present
+
+- name: Install Jenkins
+  become: yes
+  apt:
+    name: "{{ jenkins_package_name }}"
+    state: present
+    update_cache: yes
+
+- name: Enable and start Jenkins
+  become: yes
+  service:
+    name: "{{ jenkins_service_name }}"
+    state: started
+    enabled: yes
+  notify: restart jenkins
