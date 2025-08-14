@@ -1,0 +1,6 @@
+---
+- name: Install Jenkins on EC2
+  hosts: jenkins_server
+  become: yes
+  roles:
+    - jenkins
