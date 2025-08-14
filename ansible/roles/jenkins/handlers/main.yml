@@ -1,0 +1,5 @@
+- name: restart jenkins
+  become: yes
+  service:
+    name: "{{ jenkins_service_name }}"
+    state: restarted
