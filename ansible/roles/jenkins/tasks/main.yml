@@ -9,30 +9,46 @@
     state: present
     update_cache: yes
 
-- name: Add Jenkins GPG key
+# Cleanup old Jenkins key (ignore error if not present)
+- name: Remove old Jenkins GPG key
+  become: yes
+  ansible.builtin.command: apt-key del 5BA31D57EF5975CA
+  ignore_errors: yes
+
+# Cleanup old repo file (if exists)
+- name: Remove old Jenkins repo file
+  become: yes
+  ansible.builtin.file:
+    path: /etc/apt/sources.list.d/jenkins.list
+    state: absent
+
+- name: Add Jenkins GPG key (2023 key)
   become: yes
   ansible.builtin.get_url:
-    url: "{{ jenkins_repo_url }}"
+    url: "https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key"
     dest: /usr/share/keyrings/jenkins-keyring.asc
     mode: '0644'
+    force: yes
 
 - name: Add Jenkins apt repository
   become: yes
-  ansible.builtin.apt_repository:
-    repo: "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/"
-    state: present
+  ansible.builtin.copy:
+    dest: /etc/apt/sources.list.d/jenkins.list
+    content: |
+      deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/
+    mode: '0644'
 
 - name: Install Jenkins
   become: yes
   apt:
-    name: "{{ jenkins_package_name }}"
+    name: jenkins
     state: present
     update_cache: yes
 
 - name: Enable and start Jenkins
   become: yes
   service:
-    name: "{{ jenkins_service_name }}"
+    name: jenkins
     state: started
     enabled: yes
   notify: restart jenkins
