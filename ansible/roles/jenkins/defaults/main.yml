@@ -1,4 +1,4 @@
 ---
-jenkins_repo_url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+jenkins_repo_url: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
 jenkins_package_name: jenkins
 jenkins_service_name: jenkins
