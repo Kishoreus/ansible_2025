@@ -1,3 +1,3 @@
 [jenkins_server]
-3.85.112.251 ansible_user=ubuntu ansible_ssh_private_key_file=files/keypair
+52.72.10.122 ansible_user=ubuntu ansible_ssh_private_key_file=files/keypair
 
