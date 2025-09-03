@@ -1,1 +1,3 @@
-g
+cloudbees-docker-build-and-publish:1.3.3
+configuration-as-code:1775.v810dc950b_514
+docker-build-step
