@@ -11,3 +11,9 @@
   roles:
     - nodejk
 
+- name: plugins
+  hosts: jenkins_server
+  become: yes
+  roles:
+    - plugins
+
