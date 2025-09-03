@@ -1,0 +1,9 @@
+- name: Install Jenkins plugins from plugins.txt
+  loop: "{{ lookup('file', 'files/plugins.txt').splitlines() }}"
+  jenkins_plugin:
+    name: "{{ item.split(':')[0] }}"
+    version: "{{ (item.split(':')|length > 1) | ternary(item.split(':')[1], omit) }}"
+    state: present
+    url: "{{ lookup('env', 'JENKINS_URL') }}"
+    url_username: "{{ lookup('env', 'JENKINS_USER') }}"
+    url_password: "{{ lookup('env', 'JENKINS_PASS') }}"
