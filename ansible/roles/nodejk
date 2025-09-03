@@ -1,0 +1,16 @@
+- name: Install packages for Jenkins node
+  apt: 
+    name:
+      - openjdk-17-jdk
+      - git
+      - ssh
+    state: present
+    update_cache: yes
+
+- name: Create jenkins user with password
+  user:
+    name: jenkins
+    home: /home/jenkins
+    shell: /bin/bash
+    create_home: yes
+    password: "{{ 'jenkins' | password_hash('sha512') }}"
