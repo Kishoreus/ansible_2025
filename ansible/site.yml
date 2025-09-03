@@ -4,3 +4,10 @@
   become: yes
   roles:
     - jenkins
+
+- name: setup node
+  hosts: node_jk
+  become: yes
+  roles:
+    - nodejk
+
