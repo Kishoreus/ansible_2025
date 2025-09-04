@@ -8,10 +8,6 @@
     state: present
     update_cache: yes
 
-- name: Install passlib via pip
-  pip:
-    name: passlib
-    executable: pip3
 
 - name: Create jenkins user with password
   user:
@@ -19,4 +15,4 @@
     home: /home/jenkins
     shell: /bin/bash
     create_home: yes
-    password: "{{ 'jenkins' | password_hash('sha512') }}"
+    password: "$6$Bi/CrwdywL3At22J$ezhMigV.yuRIcfqBBCgScx9Ey/ABFETIWL9w01qMreTeRSoIpYZvXkCkCR1hPZmpEk8A2IXetLTuYrQFMjBse1"
