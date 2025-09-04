@@ -1,14 +1,7 @@
-# Docker related
 docker-workflow
 docker-build-step
-
-# Configuration as Code
 configuration-as-code
-
-# Tool installers
 adoptopenjdk
-
-# Code quality / security
 sonar
 dependency-check-jenkins-plugin
 
