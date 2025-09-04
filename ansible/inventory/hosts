@@ -1,7 +1,7 @@
 [jenkins_server]
-44.222.255.121 ansible_user=ubuntu ansible_ssh_private_key_file=files/keypair
+54.175.212.185 ansible_user=ubuntu ansible_ssh_private_key_file=files/keypair
 
 [node_jk]
-18.214.99.62 ansible_user=ubuntu ansible_ssh_private_key_file=files/keypair
+3.89.242.123 ansible_user=ubuntu ansible_ssh_private_key_file=files/keypair
 
 
