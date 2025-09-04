@@ -20,5 +20,8 @@ jobs:
       - name: Run Ansible playbook
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
+          JENKINS_URL: ${{ secrets.JENKINS_URL }}
+          JENKINS_USER: ${{ secrets.JENKINS_USER }}
+          JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
         run: |
           ansible-playbook -i ansible/inventory/hosts ansible/site.yml
