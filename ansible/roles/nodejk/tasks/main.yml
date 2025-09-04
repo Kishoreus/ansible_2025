@@ -1,11 +1,17 @@
 - name: Install packages for Jenkins node
-  apt: 
+  apt:
     name:
       - openjdk-17-jdk
       - git
       - ssh
+      - python3-pip
     state: present
     update_cache: yes
+
+- name: Install passlib via pip
+  pip:
+    name: passlib
+    executable: pip3
 
 - name: Create jenkins user with password
   user:
