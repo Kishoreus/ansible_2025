@@ -7,6 +7,15 @@ resource "aws_key_pair" "default" {
   public_key = file("${path.module}/files/nkey.pub")
 }
 
+terraform {
+  backend "s3" {
+    bucket         = "my-terraform-state-bucket"
+    key            = "ec2/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-locks"
+  }
+}
+
 resource "aws_security_group" "vm_sg" {
   name        = "vm_sg"
   description = "Allow SSH"
