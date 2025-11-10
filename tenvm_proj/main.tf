@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_key_pair" "default" {
   key_name   = "mykeypair"
-  public_key = file("${path.module}/files/mykeypair.pub")
+  public_key = file("${path.module}/files/nkey.pub")
 }
 
 resource "aws_security_group" "vm_sg" {
